@@ -24,6 +24,7 @@ app.put("/api/products/:prdId", (req,res,next) =>{
     .then(document =>{
         console.log("updated");
         console.log(document);
+        res.status(200).json({message: "record updated"});
     });
 });
 
@@ -33,9 +34,6 @@ app.get("/api/products/:prdId", (req,res,next) => {
     var pr ;
     var currency;
     var title;
-  
-   
- 
    MyPrice.find({"product_id": req.params.prdId})
    .then( price => {
         var strPrice = JSON.stringify(price, null, '\t');

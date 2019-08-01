@@ -32,6 +32,7 @@ export class ProductService{
         body,{ headers: { 'Content-Type': 'application/json' } })
         .subscribe((data)=>{
             console.log("price updated");
+            console.log(data);
         });
 
         
