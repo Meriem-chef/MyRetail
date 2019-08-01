@@ -1,0 +1,24 @@
+<mat-card>
+    <form (submit)="onSubmit(editPrice)" #editPrice="ngForm">
+      <div> Enter Product ID</div>
+      <mat-form-field>
+        <input matInput
+          type="text"
+          name="productID"
+          ngModel>
+      </mat-form-field>
+      <div> Enter new Price</div>
+      <mat-form-field>
+        <input matInput
+          type="text"
+          name="newPrice"
+          ngModel>
+      </mat-form-field>
+      <hr>
+      <button
+      mat-raised-button
+      color="primary" type="submit"> Submit</button>
+     
+    </form>
+  </mat-card>
+  
