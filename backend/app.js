@@ -22,32 +22,45 @@ app.put("/api/products/:prdId", (req,res,next) =>{
     console.log(req.params.prdId);
     MyPrice.updateOne({"product_id": req.params.prdId}, {$set: {"current_price.value": req.body.Price} })
     .then(document =>{
-        console.log("updated");
-        console.log(document);
-        res.status(200).json({message: "record updated"});
+        if(document.n === 0){
+            res.status(200).json({message: "record not found"});
+        }else{
+            console.log("updated");
+            console.log(document);
+            res.status(200).json({message: "record updated"});
+        }
     });
 });
 
 app.get("/api/products/:prdId", (req,res,next) => {
-    console.log(req.params.prdId);
     var prdId;
     var pr ;
     var currency;
     var title;
-   MyPrice.find({"product_id": req.params.prdId})
+   MyPrice.findOne({"product_id": req.params.prdId})
    .then( price => {
+       console.log(price);
+       if(!price) {
+            return res.status(200).json({
+                message: "No products found in Myprice DB"
+            });
+        }
         var strPrice = JSON.stringify(price, null, '\t');
-        console.log(price);
+        console.log(strPrice);
         var obj = JSON.parse(strPrice);
-        var first = obj[0];
+        var first = obj;
         pr = first["current_price"]["value"];
         currency = first["current_price"]["currency_code"];
-        return MyProduct.find({'product.available_to_promise_network.product_id': req.params.prdId});
+        return MyProduct.findOne({'product.available_to_promise_network.product_id': req.params.prdId});
    }).then(product => {
-       console.log(pr);
+        if(!product) {
+            return res.status(200).json({
+                message: "No products found in Myproduct DB"
+            });
+        }
         var strPrd = JSON.stringify(product, null, '\t');
         var objprd = JSON.parse(strPrd);
-        var firstprd = objprd[0];
+        var firstprd = objprd;
         title = firstprd.product.product_description.title;
 
         console.log(title);

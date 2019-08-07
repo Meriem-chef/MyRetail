@@ -8,7 +8,7 @@ import { ProductService } from '../product.service';
   styleUrls: ['./edit-price.component.css']
 })
 export class EditPriceComponent implements OnInit {
-
+  private editInfo: string;
   constructor(public productService: ProductService) { }
 
   ngOnInit() {
@@ -18,5 +18,9 @@ export class EditPriceComponent implements OnInit {
     console.log(form.value.productID);
     console.log(form.value.newPrice);
     this.productService.editPrice(form.value.productID,form.value.newPrice);
+    this.productService.getEditResponse()
+    .subscribe(response => {
+      this.editInfo = JSON.stringify(response);
+    })
   }
 }

@@ -7,21 +7,33 @@ import { Subject } from 'rxjs';
 export class ProductService{
 
     private returnedResponse = new Subject<any>();
+    private editresponse =  new Subject<any>();
 
     constructor(private http: HttpClient, private router:Router){}
     getProduct(prdId: string) {
         console.log("in get product");
         console.log(prdId);
-        this.http.get('http://localhost:3000/api/products/'+ prdId)
+        this.http.get<{id: string, any}>('http://localhost:3000/api/products/'+ prdId)
         .subscribe(prdData => {
-            console.log("response received");
-            console.log(prdData);
-            this.returnedResponse.next(prdData);
+            if(prdData.id){
+                console.log("response received");
+                console.log(prdData);
+                this.returnedResponse.next(prdData);
+            }else{
+                this.returnedResponse.next({
+                    message: "product not found"
+                });
+            }
+            
         })
     }
 
     getresponse(){
         return this.returnedResponse.asObservable();
+    }
+
+    getEditResponse(){
+        return this.editresponse.asObservable();
     }
 
     editPrice(prd: string, newprice:string){
@@ -31,6 +43,7 @@ export class ProductService{
         this.http.put('http://localhost:3000/api/products/'+ prd,
         body,{ headers: { 'Content-Type': 'application/json' } })
         .subscribe((data)=>{
+            this.editresponse.next(data);
             console.log("price updated");
             console.log(data);
         });
