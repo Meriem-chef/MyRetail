@@ -17,7 +17,7 @@ app.use((req, res, next) => {
     next();
 })
 
-app.put("/api/products/:prdId", (req,res,next) =>{
+app.put("/products/:prdId", (req,res,next) =>{
     console.log(req.body.Price);
     console.log(req.params.prdId);
     MyPrice.updateOne({"product_id": req.params.prdId}, {$set: {"current_price.value": req.body.Price} })
@@ -32,7 +32,7 @@ app.put("/api/products/:prdId", (req,res,next) =>{
     });
 });
 
-app.get("/api/products/:prdId", (req,res,next) => {
+app.get("/products/:prdId", (req,res,next) => {
     var prdId;
     var pr ;
     var currency;

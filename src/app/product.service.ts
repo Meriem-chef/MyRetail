@@ -13,7 +13,7 @@ export class ProductService{
     getProduct(prdId: string) {
         console.log("in get product");
         console.log(prdId);
-        this.http.get<{id: string, any}>('http://localhost:3000/api/products/'+ prdId)
+        this.http.get<{id: string, any}>('http://localhost:3000/products/'+ prdId)
         .subscribe(prdData => {
             if(prdData.id){
                 console.log("response received");
@@ -40,7 +40,7 @@ export class ProductService{
         var body = JSON.stringify({
             Price: newprice
         });
-        this.http.put('http://localhost:3000/api/products/'+ prd,
+        this.http.put('http://localhost:3000/products/'+ prd,
         body,{ headers: { 'Content-Type': 'application/json' } })
         .subscribe((data)=>{
             this.editresponse.next(data);
