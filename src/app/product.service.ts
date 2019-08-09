@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import  { HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-
+import { environment } from "../environments/environment";
+const BACKEND_URL = environment.backendUrl + "/products/"
 @Injectable({providedIn: 'root'})
 export class ProductService{
 
@@ -13,7 +14,7 @@ export class ProductService{
     getProduct(prdId: string) {
         console.log("in get product");
         console.log(prdId);
-        this.http.get<{id: string, any}>('http://localhost:3000/products/'+ prdId)
+        this.http.get<{id: string, any}>(BACKEND_URL+ prdId)
         .subscribe(prdData => {
             if(prdData.id){
                 console.log("response received");
@@ -40,7 +41,7 @@ export class ProductService{
         var body = JSON.stringify({
             Price: newprice
         });
-        this.http.put('http://localhost:3000/products/'+ prd,
+        this.http.put(BACKEND_URL+ prd,
         body,{ headers: { 'Content-Type': 'application/json' } })
         .subscribe((data)=>{
             this.editresponse.next(data);

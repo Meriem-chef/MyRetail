@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongooseprice = require('../db.connections/myprices.connections');
+const mongooseprice = require('../db.connections/myretail.connections');
 var currentPrice = new mongoose.Schema({
     value: String,
     current_code: String

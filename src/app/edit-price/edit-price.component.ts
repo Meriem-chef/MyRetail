@@ -8,7 +8,7 @@ import { ProductService } from '../product.service';
   styleUrls: ['./edit-price.component.css']
 })
 export class EditPriceComponent implements OnInit {
-  private editInfo: string;
+   editInfo: string;
   constructor(public productService: ProductService) { }
 
   ngOnInit() {

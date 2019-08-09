@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongooseproduct = require('../db.connections/myproducts.connections');
+const mongooseproduct = require('../db.connections/myretail.connections');
 var available = new mongoose.Schema({
     product_id: String
 });

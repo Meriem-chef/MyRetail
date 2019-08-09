@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser =  require('body-parser');
 const mongoose = require('mongoose');
-const MyPrice = require('../backend/models/myprice');
-const MyProduct  = require('../backend/models/myproduct');
+const MyPrice = require('./models/myprice');
+const MyProduct  = require('./models/myproduct');
 const app = express();
 
 
@@ -40,13 +40,12 @@ app.get("/products/:prdId", (req,res,next) => {
    MyPrice.findOne({"product_id": req.params.prdId})
    .then( price => {
        console.log(price);
-       if(!price) {
+       if(!price)  {
             return res.status(200).json({
                 message: "No products found in Myprice DB"
             });
         }
         var strPrice = JSON.stringify(price, null, '\t');
-        console.log(strPrice);
         var obj = JSON.parse(strPrice);
         var first = obj;
         pr = first["current_price"]["value"];
