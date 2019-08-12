@@ -1,6 +1,6 @@
 const mongoose =  require('mongoose');
 
-mongoose.connect("mongodb+srv://mbenkhal:wE6RSx49o5Acx16x@cluster0-hajpn.mongodb.net/myretail?retryWrites=true&w=majority",{ useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB,{ useNewUrlParser: true })
 .then(() => {
     console.log('Connected to myretail database');
 })
